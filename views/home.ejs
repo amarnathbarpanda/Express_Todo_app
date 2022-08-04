@@ -22,21 +22,21 @@
             <div id="wrapper">
                 <section id="category_wrapper">
                     <label for="category">Category: </label>
-                    <select id="category" name="category" required>
-                        <option>--Select--</option>
-                        <option value="deep_work">Deep Work</option>
-                        <option value="shallow_work">Shallow Work</option>
+                    <select required id="category" name="category">
+                        <option value="">--Select--</option>
+                        <option value="deep_work">Deep_Work</option>
+                        <option value="shallow_work">Shallow_Work</option>
                         <option value="chores">Chores</option>
                         <option value="learning">Learning</option>
-                        <option value="mind_care">Mind Care</option>
-                        <option value="body_care">Body Care</option>
+                        <option value="mind_care">Mind_Care</option>
+                        <option value="body_care">Body_Care</option>
                         <option value="people">People</option>
-                        <option value="next_week">Next Week</option>
+                        <option value="next_week">Next_Week</option>
                     </select>
                 </section>
                 <section id="date_wrapper">
                     <label for="date">Due Date: </label>
-                    <input type="date" name="date" id="date">
+                    <input type="date" name="date" id="date" required>
                 </section>
             </div>
 
@@ -45,32 +45,43 @@
                 <button type="submit" id="add_btn">
                     <i class="fa-solid fa-plus"></i> Add
                 </button>
-                <!-- <a href="#" id="delete_link">
-                    <button id="delete_btn">
-                        <i class="fa-solid fa-trash"></i> Delete
+                <!-- <a href="/update-todo/" class="hidden"> -->
+                <button type="submit" id="update_btn" class="hidden">
+                        <i class="fa-solid fa-plus"></i> Update
                     </button>
-                </a> -->
+                </a>
 
             </div>
         </form>
         <h2 id="small_heading">Your Todos:</h2>
         <ul id="todo_list">
             <% for( let i of todos){%>
-            <li class="todo">
+                <li class="todo">
 
-                <input type="checkbox" name="checkbox" class="todo_status" onclick="check()"/>
+                    <input type="checkbox" name="checkbox" class="todo_status" onclick="check()" />
 
-                <span class="todo_info">
-                    <p class="todo_name"><%= i.name %></p>
-                    <p class="todo_date"><i class="fa-solid fa-calendar-days"></i> <%= i.date %></p>
-                </span>
+                    <span class="todo_info">
+                        <p class="todo_name">
+                            <%= i.name %>
+                        </p>
+                        <p class="todo_date"><i class="fa-solid fa-calendar-days"></i>
+                            <%= i.date %>
+                        </p>
+                    </span>
 
-                <span class="todo_category <%= i.category %>"><%= i.category %></span>
-                <span class="delete_btn">
-                    <a href="/delete-todo/<%= i.id %>"><i class="fa-solid fa-trash"></i></a>
-                </span>
-            </li>
-            <% } %>
+                    <span class="todo_category <%= i.category %>">
+                        <%= i.category %>
+                    </span>
+                    <span class="edit_btn">
+                        <!-- <a href="/delete-todo/<%= i._id %>"> -->
+                        <i class="fa-solid fa-pen" data-id = "<%= i._id %>"></i>
+                        <!-- </a> -->
+                    </span>
+                    <span class="delete_btn">
+                        <a href="/delete-todo/<%= i._id %>"><i class="fa-solid fa-trash"></i></a>
+                    </span>
+                </li>
+                <% } %>
         </ul>
     </div>
 

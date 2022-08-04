@@ -1,6 +1,8 @@
 const express = require('express');
 // const todoRoutes = require('./router/todoRoutes');
 const bodyParser = require('body-parser');
+const db = require('./config/mongoose');
+const ToDo = require('./model/ToDo');
 const app = express();
 
 const port = 8000;
@@ -13,51 +15,64 @@ app.use(express.static('assets'));
 
 // app.use('/', todoRoutes);
 
-let todoArr = [
-    {
-        name: 'Workout',
-        date: 'AUG 4, 2022',
-        category: 'body_care',
-        id: 1
-    },
-    {
-        name: 'Buy vegies',
-        date: 'AUG 4, 2022',
-        category: 'chores',
-        id: 2
+// let todoArr = [
+//     {
+//         name: 'Workout',
+//         date: 'AUG 4, 2022',
+//         category: 'body_care',
+//         id: 1
+//     },
+//     {
+//         name: 'Buy vegies',
+//         date: 'AUG 4, 2022',
+//         category: 'chores',
+//         id: 2
 
-    }, {
-        name: 'Read 10 pages',
-        date: 'AUG 4, 2022',
-        category: 'learning',
-        id: 3
+//     }, {
+//         name: 'Read 10 pages',
+//         date: 'AUG 4, 2022',
+//         category: 'learning',
+//         id: 3
 
-    }
-]
+//     }
+// ]
 
 
-app.get('/', (req, res)=>{
+app.get('/', async (req, res)=>{
+   
+    const todos = await ToDo.find();
     return res.render('home', {
         title: 'Todo App',
-        todos: todoArr
+        todos: todos
     })
 })
 
-app.post('/create-todo', (req, res)=>{
+app.post('/create-todo', async (req, res)=>{
     // console.log(typeof req.body.date);
-    if(!req.body.date)
-        req.body.date = 'No Deadline';
-    todoArr.push(req.body);
+    // if(!req.body.date)
+    //     req.body.date = 'No Deadline';
+    // todoArr.push(req.body);
 
+    const todo = await ToDo.create(req.body);
+    if(!todo){
+        console.log('Todo creation failed!');
+        return;
+    }
     return res.redirect('back');
 });
 
-app.get('/delete-todo/:id', (req, res)=>{
-    const index = req.params.id;
-    const todo = todoArr.findIndex(todo => todo.id == index);
-    todoArr.splice(todo, 1);
+app.get('/delete-todo/:id', async (req, res)=>{
+    const id = req.params.id;
+    const deleteTodo = await ToDo.findByIdAndDelete(id);
     return res.redirect('back');
 });
+
+app.post('/update-todo/:id', async (req, res)=>{
+
+    const updatedTodo = await ToDo.findByIdAndUpdate(req.params.id ,req.body);
+    console.log(req.body);
+    return res.redirect('back');
+})
 
 // app.get('/', (req, res)=>{
 //     return res.render('home', {title: 'World'});

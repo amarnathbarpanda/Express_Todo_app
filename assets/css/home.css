@@ -189,10 +189,14 @@ option:hover{
     text-transform: uppercase;
 }
 
+
 #add_btn {
     background: var(--clr-bg-primary);
 }
 
+#update_btn{
+    background: var(--clr-bg-mind-care);
+}
 #small_heading {
     width: 100%;
     text-align: left;
@@ -272,7 +276,7 @@ option:hover{
 }
 
 .todo_info {
-    width: 60%;
+    width: 55%;
     height: 5rem;
     display: flex;
     flex-direction: column;
@@ -314,6 +318,21 @@ option:hover{
     color: var(--clr-bg-delete);
 }
 
+
+.edit_btn {
+    padding: 1rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    position: absolute;
+    right: 4rem;
+    color: var(--clr-bg-primary);
+}
+
+/* .edit_btn a{
+    text-decoration: none;
+    color: var(--clr-bg-primary);
+} */
+
 .deep_work{
     background: var(--clr-bg-deep-work);
 }
@@ -343,4 +362,7 @@ option:hover{
 /* Utils */
 .strike{
     text-decoration: line-through;
+}
+.hidden{
+    display: none;
 }
