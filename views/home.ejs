@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/home.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="main_heading">ToDo App</h1>
+        <form id="form" action="/create-todo" method="post">
+            <input type="text" name="name" id="name" required placeholder="What do you need to do?">
+            <div id="wrapper">
+                <section id="category_wrapper">
+                    <label for="category">Category: </label>
+                    <select id="category" name="category" required>
+                        <option>--Select--</option>
+                        <option value="deep_work">Deep Work</option>
+                        <option value="shallow_work">Shallow Work</option>
+                        <option value="chores">Chores</option>
+                        <option value="learning">Learning</option>
+                        <option value="mind_care">Mind Care</option>
+                        <option value="body_care">Body Care</option>
+                        <option value="people">People</option>
+                        <option value="next_week">Next Week</option>
+                    </select>
+                </section>
+                <section id="date_wrapper">
+                    <label for="date">Due Date: </label>
+                    <input type="date" name="date" id="date">
+                </section>
+            </div>
+
+            <div class="action_button">
+
+                <button type="submit" id="add_btn">
+                    <i class="fa-solid fa-plus"></i> Add
+                </button>
+                <!-- <a href="#" id="delete_link">
+                    <button id="delete_btn">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </a> -->
+
+            </div>
+        </form>
+        <h2 id="small_heading">Your Todos:</h2>
+        <ul id="todo_list">
+            <% for( let i of todos){%>
+            <li class="todo">
+
+                <input type="checkbox" name="checkbox" class="todo_status" onclick="check()"/>
+
+                <span class="todo_info">
+                    <p class="todo_name"><%= i.name %></p>
+                    <p class="todo_date"><i class="fa-solid fa-calendar-days"></i> <%= i.date %></p>
+                </span>
+
+                <span class="todo_category <%= i.category %>"><%= i.category %></span>
+                <span class="delete_btn">
+                    <a href="/delete-todo/<%= i.id %>"><i class="fa-solid fa-trash"></i></a>
+                </span>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+
+    <script src="/js/home.js"></script>
+</body>
+
+</html>
