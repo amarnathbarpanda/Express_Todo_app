@@ -15,8 +15,12 @@
 </head>
 
 <body>
+    <!-- main container -->
     <div class="container">
+        <!-- main heading of the todo app -->
         <h1 id="main_heading">ToDo App</h1>
+
+        <!-- form to send data to server -->
         <form id="form" action="/create-todo" method="post">
             <input type="text" name="name" id="name" required placeholder="What do you need to do?">
             <div id="wrapper">
@@ -45,15 +49,15 @@
                 <button type="submit" id="add_btn">
                     <i class="fa-solid fa-plus"></i> Add
                 </button>
-                <!-- <a href="/update-todo/" class="hidden"> -->
                 <button type="submit" id="update_btn" class="hidden">
                         <i class="fa-solid fa-plus"></i> Update
                     </button>
                 </a>
-
             </div>
         </form>
         <h2 id="small_heading">Your Todos:</h2>
+
+        <!-- Todos are shown here from database -->
         <ul id="todo_list">
             <% for( let i of todos){%>
                 <li class="todo">
